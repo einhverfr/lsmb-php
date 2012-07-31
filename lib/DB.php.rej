@@ -1,0 +1,25 @@
+--- lib/DB.php
++++ lib/DB.php
+@@ -44,7 +44,6 @@
+ class DB
+ {
+     public $dbhandle;
+-    protected $dbobject;
+     protected $schema = 'public';
+     
+     /**
+@@ -55,10 +54,11 @@
+      * @return DB object
+      */
+     static function getObject() {
+-        if (!isset($this->dbobject)) {
+-            $this->dbobject = new DB();
++        static $obj;
++        if (!isset($obj)) {
++            $obj = new DB();
+         }
+-        return $this->dbobject;
++        return $obj;
+     }
+     
+     

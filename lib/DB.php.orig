@@ -44,6 +44,7 @@ namespace LedgerSMB;
 class DB
 {
     public $dbhandle;
+    protected $dbobject;
     protected $schema = 'public';
     
     /**
@@ -54,11 +55,10 @@ class DB
      * @return DB object
      */
     static function getObject() {
-        static $obj;
-        if (!isset($obj)) {
-            $obj = new DB();
+        if (!isset(self::$dbobject)) {
+            self::$dbobject = new DB();
         }
-        return $obj;
+        return self::$dbobject;
     }
     
     
@@ -114,6 +114,7 @@ class DB
                                          || $1";
         $sth = pg_query_params($this->dbhandle, $query, array($role));
         $results = pg_fetch_array($sth);
+        print_r($results);
         return $results[0] == 't';
     }
 } 

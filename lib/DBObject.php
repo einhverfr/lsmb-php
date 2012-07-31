@@ -63,7 +63,7 @@ class DBObject
                AND pronamespace = 
                    coalesce((SELECT oid FROM pg_namespace WHERE nspname = $2), 
                         pronamespace)";
-         $db = LedgerSMB\DB::getObject();
+         $db = DB::getObject();
          $sth = pg_query_params($db->dbhandle, $procquery, 
                                array($procname, $this->schema));
          $procdata = pg_fetch_assoc($sth);
@@ -112,7 +112,7 @@ class DBObject
 
 
          # execution and returning results
-         $db = LedgerSMB\DB::getObject();
+         $db = DB::getObject();
          $sth = pg_query_params($db->dbhandle, $query, $args);
          if (!$sth){
              return null;
@@ -135,34 +135,12 @@ class DBObject
              }
         }
     }
-    # DB SESSION MAINTENANCE FUNCTIONS
-    /* function begin()
-     * begins a database transaction
-     */
-    public function begin(){
-        $db = LedgerSMB\DB::getObject();
-        $db->begin();
-    }
-    /* function commit()
-     * commits the current database transaction
-     */
-    public function commit(){
-        $db = LedgerSMB\DB::getObject();
-        $db->commit();
-    }
-    /* function rollback()
-     * rolls back the current database transaction
-     */
-    public function rollback(){
-        $db = LedgerSMB\DB::getObject();
-        $db->rollback();
-    }
     /* function is_allowed_role($role)
      * returns true if the user is allowed the role for the specific db 
      * i.e. $role should not include the prefix.  Otherwise it returns false
      */
     public function is_allowed_role($role){
-        $db = LedgerSMB\DB::getObject();
+        $db = DB::getObject();
         return $db->is_allowed_role($role);
     }
 } 
