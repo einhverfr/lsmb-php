@@ -1,6 +1,6 @@
 <?php
 
-/* CRM classes for LedgerSMB
+/* CRM classes for LedgerSMB: company
  * 
  *
  * Copyright (C) 2012 Chris Travers
@@ -57,6 +57,7 @@ class company extends \LedgerSMB\DBObject {
     public $sic_code;
     public $created;
     public $entity_class;
+    public $country_id;
     /*  function get($id)
      *  Retrieves the company from the database by specified id, and sets
      *  all properties.
@@ -73,7 +74,6 @@ class company extends \LedgerSMB\DBObject {
         $data = array_pop($this->call_procedure(
                  $procname = $procname, $args = array($id)
         ));
-        print_r($data);
         if (null == $data['entity_id']){
             return null;
         }
@@ -95,7 +95,6 @@ class company extends \LedgerSMB\DBObject {
            $procname = 'company_save';
         }
         $data = array_pop($this->$procname());
-        print_r($data);
-        #$this->merge($data);
+        $this->merge($data);
     }
 }
